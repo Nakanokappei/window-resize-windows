@@ -1,0 +1,68 @@
+# Window Resize for Windows
+
+A system tray application that resizes windows to preset sizes.
+
+Windows port of [Window Resize (macOS)](https://github.com/Nakanokappei/window-resize).
+
+## Features
+
+- **System tray resident** — left-click or right-click the tray icon to open the menu
+- **8 built-in preset sizes** — 4K UHD, QHD, Full HD, WSXGA+, HD+, HD, XGA, SVGA
+- **Custom sizes** — add your own width x height presets
+- **Launch at login** — optional auto-start via Windows Registry
+- **Single instance** — prevents duplicate processes
+- **10 languages** — English, Japanese, French, Spanish, Italian, Traditional Chinese, Korean, Arabic, Vietnamese, Thai
+
+## Download
+
+Download the latest release from [Releases](https://github.com/Nakanokappei/window-resize-windows/releases).
+
+No .NET runtime installation required — the exe is self-contained.
+
+## Usage
+
+1. Run `WindowResize.exe`
+2. A splash screen appears briefly, then the app sits in the system tray
+3. Click the tray icon to open the menu
+4. Select **Resize** → choose a preset size → select a window to resize
+5. Open **Settings** to add custom sizes or enable launch at login
+
+## System Requirements
+
+- Windows 10 / 11 (x64)
+
+## Preset Sizes
+
+| Size | Label |
+|------|-------|
+| 3840 x 2160 | 4K UHD |
+| 2560 x 1440 | QHD |
+| 1920 x 1080 | Full HD |
+| 1680 x 1050 | WSXGA+ |
+| 1366 x 768 | HD+ |
+| 1280 x 720 | HD |
+| 1024 x 768 | XGA |
+| 800 x 600 | SVGA |
+
+## Build from Source
+
+Requires [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
+
+```bash
+cd WindowResize
+dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true
+```
+
+Output: `bin/Release/net8.0-windows/win-x64/publish/WindowResize.exe`
+
+### Cross-compile from macOS
+
+The project supports cross-compilation from macOS using `EnableWindowsTargeting`:
+
+```bash
+dotnet publish WindowResize.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true
+```
+
+## License
+
+MIT
