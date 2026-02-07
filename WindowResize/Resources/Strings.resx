@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- Menu items -->
+  <data name="MenuResize" xml:space="preserve">
+    <value>Resize</value>
+  </data>
+  <data name="MenuSettings" xml:space="preserve">
+    <value>Settings...</value>
+  </data>
+  <data name="MenuQuit" xml:space="preserve">
+    <value>Quit Window Resize</value>
+  </data>
+  <data name="MenuLoading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="MenuNoWindows" xml:space="preserve">
+    <value>(No windows found)</value>
+  </data>
+  <data name="MenuUntitled" xml:space="preserve">
+    <value>(Untitled)</value>
+  </data>
+  <!-- Alerts -->
+  <data name="AlertResizeFailedTitle" xml:space="preserve">
+    <value>Resize Failed</value>
+  </data>
+  <data name="AlertResizeFailedBody" xml:space="preserve">
+    <value>Could not resize the window. The window may not support resizing or may be in full-screen mode.</value>
+  </data>
+  <data name="AlertButtonOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <!-- Settings window -->
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Window Resize Settings</value>
+  </data>
+  <data name="SettingsPresetSizes" xml:space="preserve">
+    <value>Preset Sizes</value>
+  </data>
+  <data name="SettingsBuiltIn" xml:space="preserve">
+    <value>Built-in</value>
+  </data>
+  <data name="SettingsCustom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="SettingsNoCustomSizes" xml:space="preserve">
+    <value>No custom sizes added</value>
+  </data>
+  <data name="SettingsWidth" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="SettingsHeight" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="SettingsDimensionSeparator" xml:space="preserve">
+    <value>x</value>
+  </data>
+  <data name="SettingsAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="SettingsRemove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="SettingsLaunchAtLogin" xml:space="preserve">
+    <value>Launch at Login</value>
+  </data>
+</root>

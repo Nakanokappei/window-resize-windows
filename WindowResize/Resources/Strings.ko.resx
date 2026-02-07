@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <data name="MenuResize" xml:space="preserve"><value>크기 조절</value></data>
+  <data name="MenuSettings" xml:space="preserve"><value>설정...</value></data>
+  <data name="MenuQuit" xml:space="preserve"><value>Window Resize 종료</value></data>
+  <data name="MenuLoading" xml:space="preserve"><value>로드 중...</value></data>
+  <data name="MenuNoWindows" xml:space="preserve"><value>(윈도우를 찾을 수 없음)</value></data>
+  <data name="MenuUntitled" xml:space="preserve"><value>(제목 없음)</value></data>
+  <data name="AlertResizeFailedTitle" xml:space="preserve"><value>크기 조절 실패</value></data>
+  <data name="AlertResizeFailedBody" xml:space="preserve"><value>윈도우 크기를 조절할 수 없습니다. 해당 윈도우가 크기 조절을 지원하지 않거나, 전체 화면 모드일 수 있습니다.</value></data>
+  <data name="AlertButtonOK" xml:space="preserve"><value>확인</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>Window Resize 설정</value></data>
+  <data name="SettingsPresetSizes" xml:space="preserve"><value>프리셋 크기</value></data>
+  <data name="SettingsBuiltIn" xml:space="preserve"><value>기본 제공</value></data>
+  <data name="SettingsCustom" xml:space="preserve"><value>사용자 지정</value></data>
+  <data name="SettingsNoCustomSizes" xml:space="preserve"><value>추가된 사용자 지정 크기 없음</value></data>
+  <data name="SettingsWidth" xml:space="preserve"><value>너비</value></data>
+  <data name="SettingsHeight" xml:space="preserve"><value>높이</value></data>
+  <data name="SettingsDimensionSeparator" xml:space="preserve"><value>x</value></data>
+  <data name="SettingsAdd" xml:space="preserve"><value>추가</value></data>
+  <data name="SettingsRemove" xml:space="preserve"><value>제거</value></data>
+  <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>로그인 시 실행</value></data>
+</root>
