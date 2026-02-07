@@ -50,4 +50,5 @@
   <data name="SettingsAdd" xml:space="preserve"><value>Ajouter</value></data>
   <data name="SettingsRemove" xml:space="preserve"><value>Supprimer</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>Lancer au démarrage</value></data>
+  <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize est déjà en cours d'exécution.</value></data>
 </root>

@@ -103,4 +103,8 @@
   <data name="SettingsLaunchAtLogin" xml:space="preserve">
     <value>Launch at Login</value>
   </data>
+  <!-- Already running -->
+  <data name="AlreadyRunningBody" xml:space="preserve">
+    <value>Window Resize is already running.</value>
+  </data>
 </root>

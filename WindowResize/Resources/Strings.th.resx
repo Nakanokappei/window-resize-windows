@@ -50,4 +50,5 @@
   <data name="SettingsAdd" xml:space="preserve"><value>เพิ่ม</value></data>
   <data name="SettingsRemove" xml:space="preserve"><value>ลบ</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>เปิดเมื่อเข้าสู่ระบบ</value></data>
+  <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize กำลังทำงานอยู่แล้ว</value></data>
 </root>

@@ -50,4 +50,5 @@
   <data name="SettingsAdd" xml:space="preserve"><value>追加</value></data>
   <data name="SettingsRemove" xml:space="preserve"><value>削除</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>ログイン時に起動</value></data>
+  <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize は既に実行中です。</value></data>
 </root>

@@ -50,4 +50,5 @@
   <data name="SettingsAdd" xml:space="preserve"><value>Thêm</value></data>
   <data name="SettingsRemove" xml:space="preserve"><value>Xóa</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>Khởi chạy khi đăng nhập</value></data>
+  <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize đã đang chạy.</value></data>
 </root>

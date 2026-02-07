@@ -40,6 +40,10 @@ public class TrayApplicationContext : ApplicationContext
             _contextMenu.Items.Clear();
             BuildMenu();
         };
+
+        // Show splash screen briefly
+        var splash = new SplashForm();
+        splash.ShowSplash(1500);
     }
 
     private void BuildMenu()

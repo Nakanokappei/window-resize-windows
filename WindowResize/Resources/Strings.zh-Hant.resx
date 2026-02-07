@@ -50,4 +50,5 @@
   <data name="SettingsAdd" xml:space="preserve"><value>加入</value></data>
   <data name="SettingsRemove" xml:space="preserve"><value>移除</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>登入時啟動</value></data>
+  <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize 已在執行中。</value></data>
 </root>

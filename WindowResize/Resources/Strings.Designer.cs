@@ -161,5 +161,11 @@ namespace WindowResize {
                 return ResourceManager.GetString("SettingsLaunchAtLogin", resourceCulture) ?? "Launch at Login";
             }
         }
+
+        internal static string AlreadyRunningBody {
+            get {
+                return ResourceManager.GetString("AlreadyRunningBody", resourceCulture) ?? "Window Resize is already running.";
+            }
+        }
     }
 }
