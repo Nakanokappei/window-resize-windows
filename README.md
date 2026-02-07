@@ -7,7 +7,7 @@ Windows port of [Window Resize (macOS)](https://github.com/Nakanokappei/window-r
 ## Features
 
 - **System tray resident** — left-click or right-click the tray icon to open the menu
-- **8 built-in preset sizes** — 4K UHD, QHD, Full HD, WSXGA+, HD+, HD, XGA, SVGA
+- **12 built-in preset sizes** — common Windows display resolutions
 - **Custom sizes** — add your own width x height presets
 - **Launch at login** — optional auto-start via Windows Registry
 - **Single instance** — prevents duplicate processes
@@ -37,9 +37,13 @@ No .NET runtime installation required — the exe is self-contained.
 |------|-------|
 | 3840 x 2160 | 4K UHD |
 | 2560 x 1440 | QHD |
+| 1920 x 1200 | WUXGA |
 | 1920 x 1080 | Full HD |
 | 1680 x 1050 | WSXGA+ |
-| 1366 x 768 | HD+ |
+| 1600 x 900 | HD+ |
+| 1440 x 900 | WXGA+ |
+| 1366 x 768 | WXGA |
+| 1280 x 1024 | SXGA |
 | 1280 x 720 | HD |
 | 1024 x 768 | XGA |
 | 800 x 600 | SVGA |
