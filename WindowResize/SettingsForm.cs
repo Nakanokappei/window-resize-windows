@@ -67,16 +67,32 @@ public class SettingsForm : Form
         {
             Text = Strings.SettingsCustom,
             Location = new Point(12, y),
-            Size = new Size(380, 180)
+            Size = new Size(380, 165)
         };
 
         _customList = new ListBox
         {
             Location = new Point(8, 20),
-            Size = new Size(364, 100),
+            Size = new Size(280, 100),
             BorderStyle = BorderStyle.FixedSingle
         };
         customGroup.Controls.Add(_customList);
+
+        // Remove button — リストの右に配置 / Place to the right of the list
+        _removeButton = new Button
+        {
+            Text = Strings.SettingsRemove,
+            Location = new Point(296, 20),
+            Size = new Size(76, 28),
+            Enabled = false
+        };
+        _removeButton.Click += RemoveButton_Click;
+        customGroup.Controls.Add(_removeButton);
+
+        _customList.SelectedIndexChanged += (_, _) =>
+        {
+            _removeButton.Enabled = _customList.SelectedIndex >= 0;
+        };
 
         // Add row
         var addPanel = new Panel
@@ -134,24 +150,8 @@ public class SettingsForm : Form
 
         customGroup.Controls.Add(addPanel);
 
-        // Remove button
-        _removeButton = new Button
-        {
-            Text = Strings.SettingsRemove,
-            Location = new Point(8, 158),
-            Size = new Size(80, 25),
-            Enabled = false
-        };
-        _removeButton.Click += RemoveButton_Click;
-        customGroup.Controls.Add(_removeButton);
-
-        _customList.SelectedIndexChanged += (_, _) =>
-        {
-            _removeButton.Enabled = _customList.SelectedIndex >= 0;
-        };
-
         Controls.Add(customGroup);
-        y += 190;
+        y += 175;
 
         // Launch at Login
         _launchAtLoginCheck = new CheckBox

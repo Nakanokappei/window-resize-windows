@@ -80,7 +80,7 @@ public class SplashForm : Form
         using var versionFont = new Font("Segoe UI", 10);
         using var versionBrush = new SolidBrush(Color.FromArgb(160, 160, 160));
         var versionRect = new RectangleF(0, 115, Width, 20);
-        g.DrawString("v1.0", versionFont, versionBrush, versionRect, sf);
+        g.DrawString("v1.1", versionFont, versionBrush, versionRect, sf);
 
         // Border
         using var borderPen = new Pen(Color.FromArgb(80, 80, 85), 1);
