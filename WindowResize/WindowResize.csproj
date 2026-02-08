@@ -8,6 +8,7 @@
     <AssemblyName>WindowResize</AssemblyName>
     <RootNamespace>WindowResize</RootNamespace>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <!-- UseWindowsForms requires Windows Desktop SDK which isn't on macOS.
@@ -22,6 +23,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\app.ico" />
   </ItemGroup>
 
   <ItemGroup>

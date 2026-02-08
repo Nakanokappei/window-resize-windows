@@ -168,13 +168,20 @@ public class TrayApplicationContext : ApplicationContext
 
     private static Icon CreateDefaultIcon()
     {
-        // Create a simple 16x16 icon with "WR" text
+        // 埋め込みリソースからアイコンを読み込む / Load icon from embedded resource
+        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        var stream = assembly.GetManifestResourceStream("WindowResize.Resources.app.ico");
+        if (stream != null)
+        {
+            return new Icon(stream);
+        }
+
+        // フォールバック: 簡易アイコンを生成 / Fallback: generate simple icon
         var bitmap = new Bitmap(16, 16);
         using (var g = Graphics.FromImage(bitmap))
         {
             g.Clear(Color.Transparent);
             using var pen = new Pen(Color.White, 1);
-            // Draw a simple window-resize icon: a rectangle with arrows
             g.DrawRectangle(pen, 2, 2, 11, 11);
             g.DrawLine(pen, 8, 6, 12, 6);
             g.DrawLine(pen, 12, 6, 12, 2);
