@@ -48,29 +48,18 @@ public class TrayApplicationContext : ApplicationContext
 
     private void BuildMenu()
     {
-        // Resize submenu
+        // Resize submenu: ウィンドウ一覧 → サイズ選択 / Window list → Size selection
         var resizeItem = new ToolStripMenuItem(Strings.MenuResize);
 
-        foreach (var size in _store.AllSizes)
+        // ウィンドウ一覧を遅延取得 / Lazy-load window list when submenu opens
+        resizeItem.DropDownOpening += (_, _) =>
         {
-            string text = size.DisplayName;
-            if (!string.IsNullOrEmpty(size.Label))
-                text += $"    {size.Label}";
+            resizeItem.DropDownItems.Clear();
+            PopulateWindowList(resizeItem);
+        };
 
-            var sizeItem = new ToolStripMenuItem(text);
-
-            // Lazy-load window list when submenu opens
-            sizeItem.DropDownOpening += (_, _) =>
-            {
-                sizeItem.DropDownItems.Clear();
-                PopulateWindowList(sizeItem, size);
-            };
-
-            // Add placeholder so submenu arrow shows
-            sizeItem.DropDownItems.Add(new ToolStripMenuItem(Strings.MenuLoading) { Enabled = false });
-            resizeItem.DropDownItems.Add(sizeItem);
-        }
-
+        // サブメニュー矢印表示用のプレースホルダー / Placeholder so submenu arrow shows
+        resizeItem.DropDownItems.Add(new ToolStripMenuItem(Strings.MenuLoading) { Enabled = false });
         _contextMenu.Items.Add(resizeItem);
         _contextMenu.Items.Add(new ToolStripSeparator());
 
@@ -91,7 +80,7 @@ public class TrayApplicationContext : ApplicationContext
         _contextMenu.Items.Add(quitItem);
     }
 
-    private void PopulateWindowList(ToolStripMenuItem parent, PresetSize size)
+    private void PopulateWindowList(ToolStripMenuItem parent)
     {
         var windows = WindowManager.ListWindows();
 
@@ -105,21 +94,64 @@ public class TrayApplicationContext : ApplicationContext
         {
             string displayName = string.IsNullOrEmpty(win.Title) ? Strings.MenuUntitled : win.Title;
             string title = $"[{win.ProcessName}] {displayName}";
-            var item = new ToolStripMenuItem(title);
-            item.Click += (_, _) =>
-            {
-                bool success = WindowManager.ResizeWindow(win, size);
-                if (!success)
-                {
-                    MessageBox.Show(
-                        Strings.AlertResizeFailedBody,
-                        Strings.AlertResizeFailedTitle,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
-            };
-            parent.DropDownItems.Add(item);
+            var windowItem = new ToolStripMenuItem(title);
+
+            // サイズ一覧をサブメニューとして追加 / Add size list as submenu
+            PopulateSizeList(windowItem, win);
+
+            parent.DropDownItems.Add(windowItem);
         }
+    }
+
+    private void PopulateSizeList(ToolStripMenuItem parent, WindowInfo win)
+    {
+        // ウィンドウが属するスクリーンの解像度を取得 / Get the screen resolution for the window's display
+        var screenSize = GetScreenSizeForWindow(win);
+
+        foreach (var size in _store.AllSizes)
+        {
+            string text = size.DisplayName;
+            if (!string.IsNullOrEmpty(size.Label))
+                text += $"    {size.Label}";
+
+            bool exceedsScreen = size.Width > screenSize.Width || size.Height > screenSize.Height;
+
+            var sizeItem = new ToolStripMenuItem(text);
+            sizeItem.Enabled = !exceedsScreen;
+
+            if (!exceedsScreen)
+            {
+                sizeItem.Click += (_, _) =>
+                {
+                    bool success = WindowManager.ResizeWindow(win, size);
+                    if (!success)
+                    {
+                        MessageBox.Show(
+                            Strings.AlertResizeFailedBody,
+                            Strings.AlertResizeFailedTitle,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+                };
+            }
+
+            parent.DropDownItems.Add(sizeItem);
+        }
+    }
+
+    /// <summary>
+    /// ウィンドウの中心座標が属するスクリーンのサイズを返す
+    /// Returns the screen size of the display containing the window's center point
+    /// </summary>
+    private static Size GetScreenSizeForWindow(WindowInfo win)
+    {
+        var centerPoint = new Point(
+            win.Left + win.Width / 2,
+            win.Top + win.Height / 2
+        );
+
+        var screen = Screen.FromPoint(centerPoint);
+        return screen.Bounds.Size;
     }
 
     private void OpenSettings()

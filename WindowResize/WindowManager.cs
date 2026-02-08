@@ -11,6 +11,8 @@ public class WindowInfo
     public IntPtr Handle { get; set; }
     public string ProcessName { get; set; } = "";
     public string Title { get; set; } = "";
+    public int Left { get; set; }
+    public int Top { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
 }
@@ -129,6 +131,8 @@ public static class WindowManager
                 Handle = hWnd,
                 ProcessName = processName,
                 Title = title,
+                Left = rect.Left,
+                Top = rect.Top,
                 Width = width,
                 Height = height
             });
