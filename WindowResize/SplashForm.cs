@@ -14,7 +14,7 @@ public class SplashForm : Form
     {
         FormBorderStyle = FormBorderStyle.None;
         StartPosition = FormStartPosition.CenterScreen;
-        Size = new Size(300, 160);
+        Size = new Size(300, 200);
         ShowInTaskbar = false;
         TopMost = true;
         BackColor = Color.FromArgb(45, 45, 48);
@@ -58,29 +58,35 @@ public class SplashForm : Form
         g.SmoothingMode = SmoothingMode.AntiAlias;
         g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
-        // Draw icon (resize symbol)
-        using var iconPen = new Pen(Color.FromArgb(0, 150, 255), 2);
-        // Outer rectangle
-        g.DrawRectangle(iconPen, 125, 25, 50, 40);
-        // Resize arrows (bottom-right)
-        g.DrawLine(iconPen, 160, 55, 170, 55);
-        g.DrawLine(iconPen, 170, 55, 170, 45);
-        // Resize arrows (top-left)
-        g.DrawLine(iconPen, 140, 35, 130, 35);
-        g.DrawLine(iconPen, 130, 35, 130, 45);
+        // Draw app icon from embedded resource
+        // 埋め込みリソースからアプリアイコンを描画
+        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        using var stream = assembly.GetManifestResourceStream("WindowResize.Resources.splash.png");
+        if (stream != null)
+        {
+            using var icon = Image.FromStream(stream);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.DrawImage(icon, (Width - 64) / 2, 15, 64, 64);
+        }
 
         // App name
         using var titleFont = new Font("Segoe UI", 18, FontStyle.Bold);
         using var titleBrush = new SolidBrush(Color.White);
-        var titleRect = new RectangleF(0, 80, Width, 35);
+        var titleRect = new RectangleF(0, 85, Width, 35);
         var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
         g.DrawString("Window Resize", titleFont, titleBrush, titleRect, sf);
 
         // Version
         using var versionFont = new Font("Segoe UI", 10);
         using var versionBrush = new SolidBrush(Color.FromArgb(160, 160, 160));
-        var versionRect = new RectangleF(0, 115, Width, 20);
+        var versionRect = new RectangleF(0, 120, Width, 20);
         g.DrawString("v1.1", versionFont, versionBrush, versionRect, sf);
+
+        // Copyright
+        using var copyrightFont = new Font("Segoe UI", 8);
+        using var copyrightBrush = new SolidBrush(Color.FromArgb(120, 120, 120));
+        var copyrightRect = new RectangleF(0, 150, Width, 20);
+        g.DrawString("\u00a9 2026 Window Resize", copyrightFont, copyrightBrush, copyrightRect, sf);
 
         // Border
         using var borderPen = new Pen(Color.FromArgb(80, 80, 85), 1);

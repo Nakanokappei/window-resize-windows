@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\app.ico" />
+    <EmbeddedResource Include="Resources\splash.png" />
   </ItemGroup>
 
   <ItemGroup>
