@@ -39,15 +39,21 @@ WindowResize/
 └── Resources/
     ├── Strings.resx                   # 英語（デフォルト）
     ├── Strings.Designer.cs            # 自動生成リソースクラス
-    ├── Strings.ja.resx                # 日本語
-    ├── Strings.fr.resx                # フランス語
+    ├── Strings.zh-Hans.resx           # 簡体中文
     ├── Strings.es.resx                # スペイン語
-    ├── Strings.it.resx                # イタリア語
-    ├── Strings.zh-Hant.resx           # 繁体中文
-    ├── Strings.ko.resx                # 韓国語
+    ├── Strings.hi.resx                # ヒンディー語
     ├── Strings.ar.resx                # アラビア語
+    ├── Strings.id.resx                # インドネシア語
+    ├── Strings.pt.resx                # ポルトガル語
+    ├── Strings.fr.resx                # フランス語
+    ├── Strings.ja.resx                # 日本語
+    ├── Strings.ru.resx                # ロシア語
+    ├── Strings.de.resx                # ドイツ語
     ├── Strings.vi.resx                # ベトナム語
-    └── Strings.th.resx               # タイ語
+    ├── Strings.th.resx                # タイ語
+    ├── Strings.ko.resx                # 韓国語
+    ├── Strings.it.resx                # イタリア語
+    └── Strings.zh-Hant.resx           # 繁体中文
 ```
 
 ## Key Architecture Decisions

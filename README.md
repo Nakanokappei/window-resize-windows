@@ -11,7 +11,7 @@ Windows port of [Window Resize (macOS)](https://github.com/Nakanokappei/window-r
 - **Custom sizes** — add your own width x height presets
 - **Launch at login** — optional auto-start via Windows Registry
 - **Single instance** — prevents duplicate processes
-- **10 languages** — English, Japanese, French, Spanish, Italian, Traditional Chinese, Korean, Arabic, Vietnamese, Thai
+- **16 languages** — English, Simplified Chinese, Spanish, Hindi, Arabic, Indonesian, Portuguese, French, Japanese, Russian, German, Vietnamese, Thai, Korean, Italian, Traditional Chinese
 
 ## Download
 

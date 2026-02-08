@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <data name="MenuResize" xml:space="preserve"><value>Redimensionar</value></data>
+  <data name="MenuSettings" xml:space="preserve"><value>Configurações...</value></data>
+  <data name="MenuQuit" xml:space="preserve"><value>Encerrar Window Resize</value></data>
+  <data name="MenuLoading" xml:space="preserve"><value>Carregando...</value></data>
+  <data name="MenuNoWindows" xml:space="preserve"><value>(Nenhuma janela encontrada)</value></data>
+  <data name="MenuUntitled" xml:space="preserve"><value>(Sem Título)</value></data>
+  <data name="AlertResizeFailedTitle" xml:space="preserve"><value>Falha ao Redimensionar</value></data>
+  <data name="AlertResizeFailedBody" xml:space="preserve"><value>Não foi possível redimensionar a janela. A janela pode não suportar redimensionamento ou estar em modo tela cheia.</value></data>
+  <data name="AlertButtonOK" xml:space="preserve"><value>OK</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>Configurações do Window Resize</value></data>
+  <data name="SettingsPresetSizes" xml:space="preserve"><value>Tamanhos Predefinidos</value></data>
+  <data name="SettingsBuiltIn" xml:space="preserve"><value>Integrados</value></data>
+  <data name="SettingsCustom" xml:space="preserve"><value>Personalizados</value></data>
+  <data name="SettingsNoCustomSizes" xml:space="preserve"><value>Nenhum tamanho personalizado adicionado</value></data>
+  <data name="SettingsWidth" xml:space="preserve"><value>Largura</value></data>
+  <data name="SettingsHeight" xml:space="preserve"><value>Altura</value></data>
+  <data name="SettingsDimensionSeparator" xml:space="preserve"><value>x</value></data>
+  <data name="SettingsAdd" xml:space="preserve"><value>Adicionar</value></data>
+  <data name="SettingsRemove" xml:space="preserve"><value>Remover</value></data>
+  <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>Iniciar ao Fazer Login</value></data>
+  <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize já está em execução.</value></data>
+</root>

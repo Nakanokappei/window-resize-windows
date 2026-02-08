@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <data name="MenuResize" xml:space="preserve"><value>आकार बदलें</value></data>
+  <data name="MenuSettings" xml:space="preserve"><value>सेटिंग्स...</value></data>
+  <data name="MenuQuit" xml:space="preserve"><value>Window Resize बंद करें</value></data>
+  <data name="MenuLoading" xml:space="preserve"><value>लोड हो रहा है...</value></data>
+  <data name="MenuNoWindows" xml:space="preserve"><value>(कोई विंडो नहीं मिली)</value></data>
+  <data name="MenuUntitled" xml:space="preserve"><value>(बिना शीर्षक)</value></data>
+  <data name="AlertResizeFailedTitle" xml:space="preserve"><value>आकार बदलना विफल</value></data>
+  <data name="AlertResizeFailedBody" xml:space="preserve"><value>विंडो का आकार नहीं बदला जा सका। विंडो रीसाइज़ का समर्थन नहीं कर सकती या फ़ुल-स्क्रीन मोड में हो सकती है।</value></data>
+  <data name="AlertButtonOK" xml:space="preserve"><value>ठीक है</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>Window Resize सेटिंग्स</value></data>
+  <data name="SettingsPresetSizes" xml:space="preserve"><value>प्रीसेट आकार</value></data>
+  <data name="SettingsBuiltIn" xml:space="preserve"><value>अंतर्निहित</value></data>
+  <data name="SettingsCustom" xml:space="preserve"><value>कस्टम</value></data>
+  <data name="SettingsNoCustomSizes" xml:space="preserve"><value>कोई कस्टम आकार नहीं जोड़ा गया</value></data>
+  <data name="SettingsWidth" xml:space="preserve"><value>चौड़ाई</value></data>
+  <data name="SettingsHeight" xml:space="preserve"><value>ऊँचाई</value></data>
+  <data name="SettingsDimensionSeparator" xml:space="preserve"><value>x</value></data>
+  <data name="SettingsAdd" xml:space="preserve"><value>जोड़ें</value></data>
+  <data name="SettingsRemove" xml:space="preserve"><value>हटाएँ</value></data>
+  <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>लॉगिन पर शुरू करें</value></data>
+  <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize पहले से चल रहा है।</value></data>
+</root>
