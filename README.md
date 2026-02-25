@@ -24,7 +24,7 @@ No .NET runtime installation required — the exe is self-contained.
 1. Run `WindowResize.exe`
 2. A splash screen appears briefly, then the app sits in the system tray
 3. Click the tray icon to open the menu
-4. Select **Resize** → choose a preset size → select a window to resize
+4. Select **Resize** → choose a window → select a preset size
 5. Open **Settings** to add custom sizes or enable launch at login
 
 ## System Requirements
