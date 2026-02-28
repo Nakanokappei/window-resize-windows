@@ -19,6 +19,7 @@ obj/
 *.msix
 *.zip
 msix_layout/
+dist/
 nul
 
 ## Temp screenshots
