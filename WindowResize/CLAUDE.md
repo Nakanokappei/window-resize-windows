@@ -129,6 +129,47 @@ WindowResize/
 - `EnableWindowsTargeting=true` + `FrameworkReference` で代替
 - `dotnet publish -r win-x64` でクロスビルド可能
 
+## Microsoft Store 公開計画 (TODO)
+
+### 公開方式
+Desktop Bridge (MSIX + `runFullTrust`)。Win32 P/Invoke を多用するため `runFullTrust` が必須。
+
+### 実装ステップ
+1. **AppxManifest.xml 作成** — `WindowResize/Package/AppxManifest.xml`
+   - `EntryPoint="Windows.FullTrustApplication"`
+   - `desktop:StartupTask` で自動起動（Registry Run key の代替）
+   - `rescap:Capability Name="runFullTrust"`
+   - `Publisher` は Partner Center でアプリ名予約後に確定
+
+2. **Store 用アセット作成** — `WindowResize/Package/Assets/`
+   - StoreLogo.png (50x50), Square44x44Logo.png, Square71x71Logo.png
+   - Square150x150Logo.png, Square310x310Logo.png, Wide310x150Logo.png
+   - app.ico から変換
+
+3. **SettingsStore.cs 修正** — 自動起動の分岐
+   - `IsPackaged()` でパッケージ環境を検出（`Windows.ApplicationModel.Package.Current`）
+   - パッケージ環境: `Windows.ApplicationModel.StartupTask` API
+   - 非パッケージ環境: 既存 Registry Run key 方式を維持
+   - → 同一コードベースで EXE 配布と Store MSIX 配布の両対応
+
+4. **csproj 修正** — WinRT 参照追加
+   - TFM を `net8.0-windows10.0.17763.0` に変更、または `Microsoft.Windows.SDK.Contracts` パッケージ追加
+
+5. **GitHub Actions** — `.github/workflows/msix.yml`
+   - Windows ランナーでビルド → MakeAppx.exe で MSIX 作成
+   - タグ push (`v*`) でトリガー
+   - `PublishSingleFile=false`（MSIX ではパッケージがインストーラー）
+
+6. **Partner Center 登録 & 提出** (手動)
+   - https://partner.microsoft.com — 個人開発者は無料（2025年9月〜）
+   - アプリ名予約 → Publisher ID 取得 → MSIX アップロード → 審査
+
+### 注意事項
+- MSIX 環境では Registry Run key が使えない → StartupTask で代替
+- Global Mutex はパッケージ環境でも動作する（ただし名前空間が分離される可能性あり）
+- Store 提出時は Microsoft が署名するため自己署名不要
+- `runFullTrust` 申請理由: ウィンドウ列挙・リサイズ・スクリーンショットのための Win32 API アクセス
+
 ## Conventions
 - リソースキーは PascalCase: `MenuResize`, `SettingsWidth`, `AlertResizeFailedTitle`
 - SettingsForm は閉じるとき Hide（破棄しない）
