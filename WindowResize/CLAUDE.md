@@ -107,7 +107,6 @@ WindowResize/
 ### スクリーンショット
 - `PrintWindow` API (P/Invoke) で対象ウィンドウをキャプチャ
 - `PW_RENDERFULLCONTENT` フラグでDWM合成ウィンドウ対応
-- DPIスケーリング対応（125%/150%/200%表示）
 - リサイズ成功後500ms待機してからキャプチャ（Mac版と同じ）
 - ファイル名形式: `MMddHHmmss_AppName_WindowTitle.png`
 - 設定項目:
@@ -115,6 +114,15 @@ WindowResize/
   - `ScreenshotSaveToFile` — ファイル保存
   - `ScreenshotSaveFolderPath` — 保存先フォルダ（FolderBrowserDialogで選択）
   - `ScreenshotCopyToClipboard` — クリップボードコピー
+
+#### DPIスケーリング対応
+- **問題:** DPI仮想化環境（Parallels+Retina Mac等、200%スケーリング）で左上1/4しかキャプチャされない
+- **原因:** GDI+ `Graphics.FromImage()` 経由のHDCがDPIスケーリングの影響を受け、`GetWindowRect`も論理ピクセルを返す
+- **対策:**
+  1. `SetThreadDpiAwarenessContext(PER_MONITOR_AWARE_V2)` で物理ピクセルサイズを取得
+  2. ネイティブGDI (`CreateCompatibleDC` + `CreateCompatibleBitmap`) でウィンドウDCと互換なメモリDCを作成し `PrintWindow` に渡す
+  3. キャプチャ後、ユーザー指定の `PresetSize` (800x600等) に `HighQualityBicubic` でリサイズ
+- **注意:** `SetResolution(96, 96)` はGDI+メタデータのみでGDI HDCには影響しないため効果なし
 
 ### クロスコンパイル注意事項
 - macOS上では `UseWindowsForms` SDK が利用不可

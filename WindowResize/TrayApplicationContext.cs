@@ -139,7 +139,7 @@ public class TrayApplicationContext : ApplicationContext
                     {
                         // リサイズ成功後にスクリーンショットをキャプチャ
                         // Capture screenshot after successful resize
-                        ScreenshotHelper.CaptureAfterResize(win);
+                        ScreenshotHelper.CaptureAfterResize(win, size);
                     }
                     else
                     {
