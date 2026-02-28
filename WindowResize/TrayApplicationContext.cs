@@ -90,10 +90,18 @@ public class TrayApplicationContext : ApplicationContext
             return;
         }
 
+        // Limit menu item width to 1/4 of the primary screen width (matches macOS behaviour)
+        var menuFont = SystemFonts.MenuFont ?? new Font("Segoe UI", 9);
+        float maxMenuWidth = Screen.PrimaryScreen!.Bounds.Width / 4.0f;
+
         foreach (var win in windows)
         {
             string displayName = string.IsNullOrEmpty(win.Title) ? Strings.MenuUntitled : win.Title;
             string title = $"[{win.ProcessName}] {displayName}";
+
+            // Truncate title so its rendered width stays within the budget
+            title = TruncateToFit(title, menuFont, maxMenuWidth);
+
             var windowItem = new ToolStripMenuItem(title);
 
             // アプリアイコンをメニューに表示 / Show app icon in menu
@@ -154,6 +162,26 @@ public class TrayApplicationContext : ApplicationContext
 
             parent.DropDownItems.Add(sizeItem);
         }
+    }
+
+    /// <summary>
+    /// テキストの描画幅が maxWidth を超える場合、末尾を切り詰めて「…」を付ける
+    /// Truncates text with "…" so its rendered width does not exceed maxWidth.
+    /// </summary>
+    private static string TruncateToFit(string text, Font font, float maxWidth)
+    {
+        if (TextRenderer.MeasureText(text, font).Width <= maxWidth)
+            return text;
+
+        while (text.Length > 10)
+        {
+            text = text[..^2] + "\u2026"; // remove last 2 chars, append "…"
+            if (TextRenderer.MeasureText(text, font).Width <= maxWidth)
+                return text;
+            text = text[..^1]; // remove the "…" before next iteration
+        }
+
+        return text + "\u2026";
     }
 
     /// <summary>
