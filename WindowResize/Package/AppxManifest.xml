@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  IgnorableNamespaces="uap rescap desktop">
+
+  <Identity
+    Name="WindowResize"
+    Publisher="CN=CBBEB0B6-F2F8-4A20-93BF-7BB185208944"
+    Version="1.2.0.0"
+    ProcessorArchitecture="x64" />
+
+  <Properties>
+    <DisplayName>Window Resize for Windows</DisplayName>
+    <PublisherDisplayName>Kappei Nakano</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <Description>Resize application windows to preset sizes from the system tray.</Description>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22621.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en-US" />
+    <Resource Language="ja" />
+    <Resource Language="zh-Hans" />
+    <Resource Language="zh-Hant" />
+    <Resource Language="ko" />
+    <Resource Language="es" />
+    <Resource Language="fr" />
+    <Resource Language="de" />
+    <Resource Language="it" />
+    <Resource Language="pt" />
+    <Resource Language="ru" />
+    <Resource Language="ar" />
+    <Resource Language="hi" />
+    <Resource Language="th" />
+    <Resource Language="vi" />
+    <Resource Language="id" />
+  </Resources>
+
+  <Applications>
+    <Application
+      Id="WindowResize"
+      Executable="WindowResize.exe"
+      EntryPoint="Windows.FullTrustApplication">
+
+      <uap:VisualElements
+        DisplayName="Window Resize"
+        Description="Resize application windows to preset sizes from the system tray."
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile
+          Wide310x150Logo="Assets\Wide310x150Logo.png"
+          Square310x310Logo="Assets\Square310x310Logo.png"
+          Square71x71Logo="Assets\Square71x71Logo.png" />
+      </uap:VisualElements>
+
+      <Extensions>
+        <!-- Auto-start at login (replaces Registry Run key for packaged apps) -->
+        <desktop:Extension Category="windows.startupTask">
+          <desktop:StartupTask
+            TaskId="WindowResizeStartup"
+            Enabled="false"
+            DisplayName="Window Resize" />
+        </desktop:Extension>
+      </Extensions>
+
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+
+</Package>

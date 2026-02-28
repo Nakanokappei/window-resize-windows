@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using Microsoft.Win32;
+#if WINDOWS10_0_17763_0_OR_GREATER
+using Windows.ApplicationModel;
+#endif
 
 namespace WindowResize;
 
@@ -123,7 +126,41 @@ public class SettingsStore
         catch { }
     }
 
+    /// <summary>
+    /// Detects whether the app is running as a packaged MSIX app.
+    /// </summary>
+    public static bool IsPackaged()
+    {
+#if WINDOWS10_0_17763_0_OR_GREATER
+        try
+        {
+            // Package.Current throws if not packaged
+            _ = Package.Current.Id;
+            return true;
+        }
+        catch { }
+#endif
+        return false;
+    }
+
     private bool GetLaunchAtLogin()
+    {
+        if (IsPackaged())
+            return GetLaunchAtLoginPackaged();
+        return GetLaunchAtLoginRegistry();
+    }
+
+    private void SetLaunchAtLogin(bool enabled)
+    {
+        if (IsPackaged())
+            SetLaunchAtLoginPackaged(enabled);
+        else
+            SetLaunchAtLoginRegistry(enabled);
+    }
+
+    // --- Registry-based (non-packaged / EXE distribution) ---
+
+    private bool GetLaunchAtLoginRegistry()
     {
         try
         {
@@ -133,7 +170,7 @@ public class SettingsStore
         catch { return false; }
     }
 
-    private void SetLaunchAtLogin(bool enabled)
+    private void SetLaunchAtLoginRegistry(bool enabled)
     {
         try
         {
@@ -151,6 +188,41 @@ public class SettingsStore
             }
         }
         catch { }
+    }
+
+    // --- StartupTask-based (packaged / MSIX Store distribution) ---
+
+    private bool GetLaunchAtLoginPackaged()
+    {
+#if WINDOWS10_0_17763_0_OR_GREATER
+        try
+        {
+            var task = StartupTask.GetAsync("WindowResizeStartup").GetAwaiter().GetResult();
+            return task.State == StartupTaskState.Enabled;
+        }
+        catch { }
+#endif
+        return false;
+    }
+
+    private void SetLaunchAtLoginPackaged(bool enabled)
+    {
+#if WINDOWS10_0_17763_0_OR_GREATER
+        try
+        {
+            var task = StartupTask.GetAsync("WindowResizeStartup").GetAwaiter().GetResult();
+            if (enabled)
+            {
+                if (task.State == StartupTaskState.Disabled)
+                    task.RequestEnableAsync().GetAwaiter().GetResult();
+            }
+            else
+            {
+                task.Disable();
+            }
+        }
+        catch { }
+#endif
     }
 
     private class SettingsData

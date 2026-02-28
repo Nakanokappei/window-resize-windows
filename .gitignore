@@ -14,3 +14,12 @@ obj/
 *.swp
 *~
 .DS_Store
+
+## Build artifacts
+*.msix
+*.zip
+msix_layout/
+nul
+
+## Temp screenshots
+WindowResize/0301*.png
