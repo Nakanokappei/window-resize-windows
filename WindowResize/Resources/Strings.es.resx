@@ -51,4 +51,10 @@
   <data name="SettingsRemove" xml:space="preserve"><value>Eliminar</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>Iniciar sesión automáticamente</value></data>
   <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize ya se está ejecutando.</value></data>
+  <data name="SettingsScreenshot" xml:space="preserve"><value>Captura de pantalla</value></data>
+  <data name="SettingsScreenshotEnabled" xml:space="preserve"><value>Capturar pantalla tras redimensionar</value></data>
+  <data name="SettingsScreenshotSaveToFile" xml:space="preserve"><value>Guardar en archivo</value></data>
+  <data name="SettingsScreenshotChooseFolder" xml:space="preserve"><value>Elegir carpeta...</value></data>
+  <data name="SettingsScreenshotCopyToClipboard" xml:space="preserve"><value>Copiar al portapapeles</value></data>
+  <data name="SettingsScreenshotNoFolderSelected" xml:space="preserve"><value>Ninguna carpeta seleccionada</value></data>
 </root>

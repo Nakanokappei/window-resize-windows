@@ -51,4 +51,10 @@
   <data name="SettingsRemove" xml:space="preserve"><value>हटाएँ</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>लॉगिन पर शुरू करें</value></data>
   <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize पहले से चल रहा है।</value></data>
+  <data name="SettingsScreenshot" xml:space="preserve"><value>स्क्रीनशॉट</value></data>
+  <data name="SettingsScreenshotEnabled" xml:space="preserve"><value>आकार बदलने के बाद स्क्रीनशॉट लें</value></data>
+  <data name="SettingsScreenshotSaveToFile" xml:space="preserve"><value>फ़ाइल में सहेजें</value></data>
+  <data name="SettingsScreenshotChooseFolder" xml:space="preserve"><value>फ़ोल्डर चुनें...</value></data>
+  <data name="SettingsScreenshotCopyToClipboard" xml:space="preserve"><value>क्लिपबोर्ड पर कॉपी करें</value></data>
+  <data name="SettingsScreenshotNoFolderSelected" xml:space="preserve"><value>कोई फ़ोल्डर चयनित नहीं</value></data>
 </root>

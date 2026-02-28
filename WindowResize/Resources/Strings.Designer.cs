@@ -167,5 +167,41 @@ namespace WindowResize {
                 return ResourceManager.GetString("AlreadyRunningBody", resourceCulture) ?? "Window Resize is already running.";
             }
         }
+
+        internal static string SettingsScreenshot {
+            get {
+                return ResourceManager.GetString("SettingsScreenshot", resourceCulture) ?? "Screenshot";
+            }
+        }
+
+        internal static string SettingsScreenshotEnabled {
+            get {
+                return ResourceManager.GetString("SettingsScreenshotEnabled", resourceCulture) ?? "Take screenshot after resize";
+            }
+        }
+
+        internal static string SettingsScreenshotSaveToFile {
+            get {
+                return ResourceManager.GetString("SettingsScreenshotSaveToFile", resourceCulture) ?? "Save to file";
+            }
+        }
+
+        internal static string SettingsScreenshotChooseFolder {
+            get {
+                return ResourceManager.GetString("SettingsScreenshotChooseFolder", resourceCulture) ?? "Choose Folder...";
+            }
+        }
+
+        internal static string SettingsScreenshotCopyToClipboard {
+            get {
+                return ResourceManager.GetString("SettingsScreenshotCopyToClipboard", resourceCulture) ?? "Copy to clipboard";
+            }
+        }
+
+        internal static string SettingsScreenshotNoFolderSelected {
+            get {
+                return ResourceManager.GetString("SettingsScreenshotNoFolderSelected", resourceCulture) ?? "No folder selected";
+            }
+        }
     }
 }

@@ -107,4 +107,23 @@
   <data name="AlreadyRunningBody" xml:space="preserve">
     <value>Window Resize is already running.</value>
   </data>
+  <!-- Screenshot settings -->
+  <data name="SettingsScreenshot" xml:space="preserve">
+    <value>Screenshot</value>
+  </data>
+  <data name="SettingsScreenshotEnabled" xml:space="preserve">
+    <value>Take screenshot after resize</value>
+  </data>
+  <data name="SettingsScreenshotSaveToFile" xml:space="preserve">
+    <value>Save to file</value>
+  </data>
+  <data name="SettingsScreenshotChooseFolder" xml:space="preserve">
+    <value>Choose Folder...</value>
+  </data>
+  <data name="SettingsScreenshotCopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
+  <data name="SettingsScreenshotNoFolderSelected" xml:space="preserve">
+    <value>No folder selected</value>
+  </data>
 </root>

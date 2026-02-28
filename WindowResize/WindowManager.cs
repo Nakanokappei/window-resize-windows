@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -15,6 +16,7 @@ public class WindowInfo
     public int Top { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
+    public Icon? AppIcon { get; set; }
 }
 
 public static class WindowManager
@@ -50,6 +52,19 @@ public static class WindowManager
 
     [DllImport("dwmapi.dll")]
     private static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, out int pvAttribute, int cbAttribute);
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetClassLongPtr(IntPtr hWnd, int nIndex);
+
+    private const uint WM_GETICON = 0x007F;
+    private const IntPtr ICON_SMALL = 0;
+    private const IntPtr ICON_BIG = 1;
+    private const IntPtr ICON_SMALL2 = 2;
+    private const int GCLP_HICONSM = -34;
+    private const int GCLP_HICON = -14;
 
     [StructLayout(LayoutKind.Sequential)]
     private struct RECT
@@ -134,13 +149,43 @@ public static class WindowManager
                 Left = rect.Left,
                 Top = rect.Top,
                 Width = width,
-                Height = height
+                Height = height,
+                AppIcon = GetWindowIcon(hWnd)
             });
 
             return true;
         }, IntPtr.Zero);
 
         return windows;
+    }
+
+    /// <summary>
+    /// ウィンドウのアプリアイコンを取得
+    /// Get the application icon for a window
+    /// </summary>
+    private static Icon? GetWindowIcon(IntPtr hWnd)
+    {
+        try
+        {
+            // WM_GETICON で小さいアイコンを試す / Try WM_GETICON for small icon
+            IntPtr iconHandle = SendMessage(hWnd, WM_GETICON, ICON_SMALL2, IntPtr.Zero);
+            if (iconHandle == IntPtr.Zero)
+                iconHandle = SendMessage(hWnd, WM_GETICON, ICON_SMALL, IntPtr.Zero);
+            if (iconHandle == IntPtr.Zero)
+                iconHandle = SendMessage(hWnd, WM_GETICON, ICON_BIG, IntPtr.Zero);
+
+            // GetClassLongPtr でクラスアイコンを試す / Try class icon
+            if (iconHandle == IntPtr.Zero)
+                iconHandle = GetClassLongPtr(hWnd, GCLP_HICONSM);
+            if (iconHandle == IntPtr.Zero)
+                iconHandle = GetClassLongPtr(hWnd, GCLP_HICON);
+
+            if (iconHandle != IntPtr.Zero)
+                return Icon.FromHandle(iconHandle);
+        }
+        catch { }
+
+        return null;
     }
 
     public static bool ResizeWindow(WindowInfo window, PresetSize size)

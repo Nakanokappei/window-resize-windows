@@ -36,6 +36,7 @@ WindowResize/
 ├── PresetSize.cs                      # サイズモデル
 ├── SettingsStore.cs                   # JSON永続化・レジストリ自動起動
 ├── SettingsForm.cs                    # WinForms設定画面
+├── ScreenshotHelper.cs               # スクリーンショットキャプチャ (PrintWindow API)
 └── Resources/
     ├── Strings.resx                   # 英語（デフォルト）
     ├── Strings.Designer.cs            # 自動生成リソースクラス
@@ -68,6 +69,7 @@ WindowResize/
 | 権限 | Accessibility権限必要 | 不要 |
 | 設定保存 | UserDefaults | JSON in AppData |
 | 自動起動 | SMAppService | Registry Run key |
+| スクリーンショット | SCScreenshotManager / CGWindowListCreateImage | PrintWindow (P/Invoke) |
 | 多言語 | .lproj/Localizable.strings | .resx リソース |
 
 ### ウィンドウ列挙・リサイズ
@@ -101,6 +103,18 @@ WindowResize/
 | 1280 x 720 | HD |
 | 1024 x 768 | XGA |
 | 800 x 600 | SVGA |
+
+### スクリーンショット
+- `PrintWindow` API (P/Invoke) で対象ウィンドウをキャプチャ
+- `PW_RENDERFULLCONTENT` フラグでDWM合成ウィンドウ対応
+- DPIスケーリング対応（125%/150%/200%表示）
+- リサイズ成功後500ms待機してからキャプチャ（Mac版と同じ）
+- ファイル名形式: `MMddHHmmss_AppName_WindowTitle.png`
+- 設定項目:
+  - `ScreenshotEnabled` — マスタートグル
+  - `ScreenshotSaveToFile` — ファイル保存
+  - `ScreenshotSaveFolderPath` — 保存先フォルダ（FolderBrowserDialogで選択）
+  - `ScreenshotCopyToClipboard` — クリップボードコピー
 
 ### クロスコンパイル注意事項
 - macOS上では `UseWindowsForms` SDK が利用不可

@@ -51,4 +51,10 @@
   <data name="SettingsRemove" xml:space="preserve"><value>Удалить</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>Запускать при входе</value></data>
   <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize уже запущен.</value></data>
+  <data name="SettingsScreenshot" xml:space="preserve"><value>Снимок экрана</value></data>
+  <data name="SettingsScreenshotEnabled" xml:space="preserve"><value>Сделать снимок после изменения размера</value></data>
+  <data name="SettingsScreenshotSaveToFile" xml:space="preserve"><value>Сохранить в файл</value></data>
+  <data name="SettingsScreenshotChooseFolder" xml:space="preserve"><value>Выбрать папку...</value></data>
+  <data name="SettingsScreenshotCopyToClipboard" xml:space="preserve"><value>Копировать в буфер обмена</value></data>
+  <data name="SettingsScreenshotNoFolderSelected" xml:space="preserve"><value>Папка не выбрана</value></data>
 </root>

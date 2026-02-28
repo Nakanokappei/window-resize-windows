@@ -51,4 +51,10 @@
   <data name="SettingsRemove" xml:space="preserve"><value>削除</value></data>
   <data name="SettingsLaunchAtLogin" xml:space="preserve"><value>ログイン時に起動</value></data>
   <data name="AlreadyRunningBody" xml:space="preserve"><value>Window Resize は既に実行中です。</value></data>
+  <data name="SettingsScreenshot" xml:space="preserve"><value>スクリーンショット</value></data>
+  <data name="SettingsScreenshotEnabled" xml:space="preserve"><value>リサイズ後にスクリーンショットを撮る</value></data>
+  <data name="SettingsScreenshotSaveToFile" xml:space="preserve"><value>ファイルに保存</value></data>
+  <data name="SettingsScreenshotChooseFolder" xml:space="preserve"><value>フォルダを選択...</value></data>
+  <data name="SettingsScreenshotCopyToClipboard" xml:space="preserve"><value>クリップボードにコピー</value></data>
+  <data name="SettingsScreenshotNoFolderSelected" xml:space="preserve"><value>フォルダが選択されていません</value></data>
 </root>

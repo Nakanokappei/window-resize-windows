@@ -14,6 +14,15 @@ public class SettingsForm : Form
     private Button _addButton = null!;
     private Button _removeButton = null!;
     private CheckBox _launchAtLoginCheck = null!;
+    private CheckBox _screenshotEnabledCheck = null!;
+    private Panel _screenshotOptionsPanel = null!;
+    private CheckBox _screenshotSaveToFileCheck = null!;
+    private CheckBox _screenshotCopyToClipboardCheck = null!;
+    private Button _chooseFolderButton = null!;
+    private Label _folderPathLabel = null!;
+
+    // スクリーンショットセクション開始Y座標 / Y position where screenshot section starts
+    private int _screenshotSectionY;
 
     public SettingsForm()
     {
@@ -24,7 +33,6 @@ public class SettingsForm : Form
     private void InitializeComponents()
     {
         Text = Strings.SettingsTitle;
-        Size = new Size(420, 520);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
         StartPosition = FormStartPosition.CenterScreen;
@@ -166,6 +174,123 @@ public class SettingsForm : Form
             _store.LaunchAtLogin = _launchAtLoginCheck.Checked;
         };
         Controls.Add(_launchAtLoginCheck);
+        y += 32;
+
+        // Screenshot section header
+        var screenshotHeader = new Label
+        {
+            Text = Strings.SettingsScreenshot,
+            Font = new Font(Font, FontStyle.Bold),
+            Location = new Point(12, y),
+            AutoSize = true
+        };
+        Controls.Add(screenshotHeader);
+        y += 24;
+
+        // Screenshot enabled
+        _screenshotEnabledCheck = new CheckBox
+        {
+            Text = Strings.SettingsScreenshotEnabled,
+            Location = new Point(12, y),
+            AutoSize = true,
+            Checked = _store.ScreenshotEnabled
+        };
+        _screenshotEnabledCheck.CheckedChanged += (_, _) =>
+        {
+            _store.ScreenshotEnabled = _screenshotEnabledCheck.Checked;
+            _store.SaveScreenshotSettings();
+            UpdateScreenshotOptionsVisibility();
+        };
+        Controls.Add(_screenshotEnabledCheck);
+        y += 26;
+
+        // スクリーンショットオプションパネル（表示/非表示切替用）
+        // Screenshot options panel (for show/hide toggle)
+        _screenshotSectionY = y;
+        _screenshotOptionsPanel = new Panel
+        {
+            Location = new Point(0, y),
+            Size = new Size(420, 86)
+        };
+
+        int py = 0;
+
+        // Save to file
+        _screenshotSaveToFileCheck = new CheckBox
+        {
+            Text = Strings.SettingsScreenshotSaveToFile,
+            Location = new Point(28, py),
+            AutoSize = true,
+            Checked = _store.ScreenshotSaveToFile
+        };
+        _screenshotSaveToFileCheck.CheckedChanged += (_, _) =>
+        {
+            _store.ScreenshotSaveToFile = _screenshotSaveToFileCheck.Checked;
+            _store.SaveScreenshotSettings();
+            _chooseFolderButton.Enabled = _store.ScreenshotSaveToFile;
+        };
+        _screenshotOptionsPanel.Controls.Add(_screenshotSaveToFileCheck);
+        py += 26;
+
+        // Choose folder button + path label
+        _chooseFolderButton = new Button
+        {
+            Text = Strings.SettingsScreenshotChooseFolder,
+            Location = new Point(44, py),
+            AutoSize = true,
+            Enabled = _store.ScreenshotSaveToFile
+        };
+        _chooseFolderButton.Click += ChooseFolderButton_Click;
+        _screenshotOptionsPanel.Controls.Add(_chooseFolderButton);
+
+        _folderPathLabel = new Label
+        {
+            Text = GetFolderDisplayText(),
+            Location = new Point(_chooseFolderButton.Right + 8, py + 4),
+            Size = new Size(240, 20),
+            ForeColor = Color.Gray,
+            AutoEllipsis = true
+        };
+        _screenshotOptionsPanel.Controls.Add(_folderPathLabel);
+        py += 30;
+
+        // Copy to clipboard
+        _screenshotCopyToClipboardCheck = new CheckBox
+        {
+            Text = Strings.SettingsScreenshotCopyToClipboard,
+            Location = new Point(28, py),
+            AutoSize = true,
+            Checked = _store.ScreenshotCopyToClipboard
+        };
+        _screenshotCopyToClipboardCheck.CheckedChanged += (_, _) =>
+        {
+            _store.ScreenshotCopyToClipboard = _screenshotCopyToClipboardCheck.Checked;
+            _store.SaveScreenshotSettings();
+        };
+        _screenshotOptionsPanel.Controls.Add(_screenshotCopyToClipboardCheck);
+
+        Controls.Add(_screenshotOptionsPanel);
+
+        // 初期表示状態を設定 / Set initial visibility
+        UpdateScreenshotOptionsVisibility();
+    }
+
+    /// <summary>
+    /// スクリーンショットオプションの表示/非表示を切り替え、フォーム高さを自動調整
+    /// Toggle screenshot options visibility and auto-adjust form height
+    /// </summary>
+    private void UpdateScreenshotOptionsVisibility()
+    {
+        bool show = _store.ScreenshotEnabled;
+        _screenshotOptionsPanel.Visible = show;
+
+        // フォーム高さを再計算 / Recalculate form height
+        int contentBottom = show
+            ? _screenshotSectionY + _screenshotOptionsPanel.Height + 12
+            : _screenshotSectionY + 12;
+
+        // タイトルバー分を含むフォームサイズ / Form size including title bar
+        ClientSize = new Size(404, contentBottom);
     }
 
     private void LoadData()
@@ -226,6 +351,27 @@ public class SettingsForm : Form
             _store.RemoveSize(_store.CustomSizes[idx]);
             RefreshCustomList();
         }
+    }
+
+    private void ChooseFolderButton_Click(object? sender, EventArgs e)
+    {
+        using var dialog = new FolderBrowserDialog();
+        if (!string.IsNullOrEmpty(_store.ScreenshotSaveFolderPath))
+            dialog.SelectedPath = _store.ScreenshotSaveFolderPath;
+
+        if (dialog.ShowDialog() == DialogResult.OK)
+        {
+            _store.ScreenshotSaveFolderPath = dialog.SelectedPath;
+            _store.SaveScreenshotSettings();
+            _folderPathLabel.Text = GetFolderDisplayText();
+        }
+    }
+
+    private string GetFolderDisplayText()
+    {
+        return string.IsNullOrEmpty(_store.ScreenshotSaveFolderPath)
+            ? Strings.SettingsScreenshotNoFolderSelected
+            : _store.ScreenshotSaveFolderPath;
     }
 
     protected override void OnFormClosing(FormClosingEventArgs e)

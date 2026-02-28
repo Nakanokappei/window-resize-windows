@@ -17,6 +17,12 @@ public class SettingsStore
 
     public List<PresetSize> CustomSizes { get; private set; } = new();
 
+    // Screenshot settings
+    public bool ScreenshotEnabled { get; set; }
+    public bool ScreenshotSaveToFile { get; set; } = true;
+    public string ScreenshotSaveFolderPath { get; set; } = "";
+    public bool ScreenshotCopyToClipboard { get; set; }
+
     public bool LaunchAtLogin
     {
         get => GetLaunchAtLogin();
@@ -74,6 +80,12 @@ public class SettingsStore
         SettingsChanged?.Invoke();
     }
 
+    public void SaveScreenshotSettings()
+    {
+        Save();
+        SettingsChanged?.Invoke();
+    }
+
     private void Load()
     {
         try
@@ -84,6 +96,10 @@ public class SettingsStore
                 var data = JsonSerializer.Deserialize<SettingsData>(json);
                 if (data?.CustomSizes != null)
                     CustomSizes = data.CustomSizes;
+                ScreenshotEnabled = data?.ScreenshotEnabled ?? false;
+                ScreenshotSaveToFile = data?.ScreenshotSaveToFile ?? true;
+                ScreenshotSaveFolderPath = data?.ScreenshotSaveFolderPath ?? "";
+                ScreenshotCopyToClipboard = data?.ScreenshotCopyToClipboard ?? false;
             }
         }
         catch { }
@@ -93,7 +109,14 @@ public class SettingsStore
     {
         try
         {
-            var data = new SettingsData { CustomSizes = CustomSizes };
+            var data = new SettingsData
+            {
+                CustomSizes = CustomSizes,
+                ScreenshotEnabled = ScreenshotEnabled,
+                ScreenshotSaveToFile = ScreenshotSaveToFile,
+                ScreenshotSaveFolderPath = ScreenshotSaveFolderPath,
+                ScreenshotCopyToClipboard = ScreenshotCopyToClipboard
+            };
             string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(_settingsPath, json);
         }
@@ -133,5 +156,9 @@ public class SettingsStore
     private class SettingsData
     {
         public List<PresetSize>? CustomSizes { get; set; }
+        public bool ScreenshotEnabled { get; set; }
+        public bool ScreenshotSaveToFile { get; set; } = true;
+        public string ScreenshotSaveFolderPath { get; set; } = "";
+        public bool ScreenshotCopyToClipboard { get; set; }
     }
 }

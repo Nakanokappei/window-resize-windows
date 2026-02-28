@@ -13,7 +13,7 @@ public class TrayApplicationContext : ApplicationContext
 
     public TrayApplicationContext()
     {
-        _contextMenu = new ContextMenuStrip();
+        _contextMenu = new ContextMenuStrip { ShowImageMargin = true };
         BuildMenu();
 
         _notifyIcon = new NotifyIcon
@@ -96,6 +96,17 @@ public class TrayApplicationContext : ApplicationContext
             string title = $"[{win.ProcessName}] {displayName}";
             var windowItem = new ToolStripMenuItem(title);
 
+            // アプリアイコンをメニューに表示 / Show app icon in menu
+            if (win.AppIcon != null)
+            {
+                try
+                {
+                    windowItem.Image = win.AppIcon.ToBitmap();
+                    windowItem.ImageScaling = ToolStripItemImageScaling.SizeToFit;
+                }
+                catch { }
+            }
+
             // サイズ一覧をサブメニューとして追加 / Add size list as submenu
             PopulateSizeList(windowItem, win);
 
@@ -124,7 +135,13 @@ public class TrayApplicationContext : ApplicationContext
                 sizeItem.Click += (_, _) =>
                 {
                     bool success = WindowManager.ResizeWindow(win, size);
-                    if (!success)
+                    if (success)
+                    {
+                        // リサイズ成功後にスクリーンショットをキャプチャ
+                        // Capture screenshot after successful resize
+                        ScreenshotHelper.CaptureAfterResize(win);
+                    }
+                    else
                     {
                         MessageBox.Show(
                             Strings.AlertResizeFailedBody,
