@@ -72,4 +72,4 @@ dotnet publish WindowResize.csproj -c Release -r win-x64 --self-contained -p:Pub
 
 ## License
 
-MIT
+[MIT](LICENSE)
