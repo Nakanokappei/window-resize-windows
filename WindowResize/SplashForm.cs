@@ -59,7 +59,6 @@ public class SplashForm : Form
         g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
         // Draw app icon from embedded resource
-        // 埋め込みリソースからアプリアイコンを描画
         var assembly = System.Reflection.Assembly.GetExecutingAssembly();
         using var stream = assembly.GetManifestResourceStream("WindowResize.Resources.splash.png");
         if (stream != null)
@@ -80,7 +79,7 @@ public class SplashForm : Form
         using var versionFont = new Font("Segoe UI", 10);
         using var versionBrush = new SolidBrush(Color.FromArgb(160, 160, 160));
         var versionRect = new RectangleF(0, 120, Width, 20);
-        g.DrawString("v1.4", versionFont, versionBrush, versionRect, sf);
+        g.DrawString("v1.5", versionFont, versionBrush, versionRect, sf);
 
         // Copyright
         using var copyrightFont = new Font("Segoe UI", 8);
