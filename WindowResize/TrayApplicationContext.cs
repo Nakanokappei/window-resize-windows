@@ -97,12 +97,12 @@ public class TrayApplicationContext : ApplicationContext
         foreach (var win in windows)
         {
             string displayName = string.IsNullOrEmpty(win.Title) ? Strings.MenuUntitled : win.Title;
-            string title = $"[{win.ProcessName}] {displayName}";
 
             // Truncate title so its rendered width stays within the budget
-            title = TruncateToFit(title, menuFont, maxMenuWidth);
+            string title = TruncateToFit(displayName, menuFont, maxMenuWidth);
 
             var windowItem = new ToolStripMenuItem(title);
+            windowItem.ShortcutKeyDisplayString = win.ProcessName;
 
             // アプリアイコンをメニューに表示 / Show app icon in menu
             if (win.AppIcon != null)
@@ -130,12 +130,12 @@ public class TrayApplicationContext : ApplicationContext
         foreach (var size in _store.AllSizes)
         {
             string text = size.DisplayName;
-            if (!string.IsNullOrEmpty(size.Label))
-                text += $"    {size.Label}";
 
             bool exceedsScreen = size.Width > screenSize.Width || size.Height > screenSize.Height;
 
             var sizeItem = new ToolStripMenuItem(text);
+            if (!string.IsNullOrEmpty(size.Label))
+                sizeItem.ShortcutKeyDisplayString = size.Label;
             sizeItem.Enabled = !exceedsScreen;
 
             if (!exceedsScreen)
