@@ -85,6 +85,7 @@ public static class WindowManager
     private const uint SWP_NOMOVE = 0x0002;
     private const uint SWP_NOZORDER = 0x0004;
 
+    // Enumerate all visible, resizable application windows, excluding this process.
     public static List<WindowInfo> ListWindows()
     {
         var windows = new List<WindowInfo>();
@@ -160,25 +161,30 @@ public static class WindowManager
     }
 
     /// <summary>
-    /// ウィンドウのアプリアイコンを取得
-    /// Get the application icon for a window
+    /// Retrieve the application icon for a window, trying multiple Win32 strategies.
     /// </summary>
     private static Icon? GetWindowIcon(IntPtr hWnd)
     {
         try
         {
-            // WM_GETICON で小さいアイコンを試す / Try WM_GETICON for small icon
-            IntPtr iconHandle = SendMessage(hWnd, WM_GETICON, ICON_SMALL2, IntPtr.Zero);
-            if (iconHandle == IntPtr.Zero)
-                iconHandle = SendMessage(hWnd, WM_GETICON, ICON_SMALL, IntPtr.Zero);
-            if (iconHandle == IntPtr.Zero)
-                iconHandle = SendMessage(hWnd, WM_GETICON, ICON_BIG, IntPtr.Zero);
+            IntPtr iconHandle = IntPtr.Zero;
 
-            // GetClassLongPtr でクラスアイコンを試す / Try class icon
+            // Try WM_GETICON with decreasing size preference (small2 -> small -> big).
+            foreach (var sizeHint in new[] { ICON_SMALL2, ICON_SMALL, ICON_BIG })
+            {
+                iconHandle = SendMessage(hWnd, WM_GETICON, sizeHint, IntPtr.Zero);
+                if (iconHandle != IntPtr.Zero) break;
+            }
+
+            // Fall back to the window class icon (small -> large).
             if (iconHandle == IntPtr.Zero)
-                iconHandle = GetClassLongPtr(hWnd, GCLP_HICONSM);
-            if (iconHandle == IntPtr.Zero)
-                iconHandle = GetClassLongPtr(hWnd, GCLP_HICON);
+            {
+                foreach (var classIndex in new[] { GCLP_HICONSM, GCLP_HICON })
+                {
+                    iconHandle = GetClassLongPtr(hWnd, classIndex);
+                    if (iconHandle != IntPtr.Zero) break;
+                }
+            }
 
             if (iconHandle != IntPtr.Zero)
                 return Icon.FromHandle(iconHandle);
@@ -188,6 +194,7 @@ public static class WindowManager
         return null;
     }
 
+    // Resize the window to the given preset size, keeping its current position.
     public static bool ResizeWindow(WindowInfo window, PresetSize size)
     {
         return SetWindowPos(

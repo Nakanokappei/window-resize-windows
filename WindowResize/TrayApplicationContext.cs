@@ -18,7 +18,7 @@ public class TrayApplicationContext : ApplicationContext
 
         _notifyIcon = new NotifyIcon
         {
-            Icon = CreateDefaultIcon(),
+            Icon = LoadTrayIcon(),
             ContextMenuStrip = _contextMenu,
             Visible = true,
             Text = "Window Resize"
@@ -46,19 +46,19 @@ public class TrayApplicationContext : ApplicationContext
         splash.ShowSplash(1500);
     }
 
+    // Construct the tray context menu: Resize submenu, Settings, Quit.
     private void BuildMenu()
     {
-        // Resize submenu: ウィンドウ一覧 → サイズ選択 / Window list → Size selection
         var resizeItem = new ToolStripMenuItem(Strings.MenuResize);
 
-        // ウィンドウ一覧を遅延取得 / Lazy-load window list when submenu opens
+        // Lazy-load the window list each time the submenu opens
         resizeItem.DropDownOpening += (_, _) =>
         {
             resizeItem.DropDownItems.Clear();
             PopulateWindowList(resizeItem);
         };
 
-        // サブメニュー矢印表示用のプレースホルダー / Placeholder so submenu arrow shows
+        // Placeholder item so WinForms renders the submenu arrow
         resizeItem.DropDownItems.Add(new ToolStripMenuItem(Strings.MenuLoading) { Enabled = false });
         _contextMenu.Items.Add(resizeItem);
         _contextMenu.Items.Add(new ToolStripSeparator());
@@ -80,6 +80,7 @@ public class TrayApplicationContext : ApplicationContext
         _contextMenu.Items.Add(quitItem);
     }
 
+    // Enumerate visible windows and add each as a submenu item with its app icon.
     private void PopulateWindowList(ToolStripMenuItem parent)
     {
         var windows = WindowManager.ListWindows();
@@ -104,7 +105,7 @@ public class TrayApplicationContext : ApplicationContext
             var windowItem = new ToolStripMenuItem(title);
             windowItem.ShortcutKeyDisplayString = win.ProcessName;
 
-            // アプリアイコンをメニューに表示 / Show app icon in menu
+            // Display the application's icon beside the menu item
             if (win.AppIcon != null)
             {
                 try
@@ -115,16 +116,17 @@ public class TrayApplicationContext : ApplicationContext
                 catch { }
             }
 
-            // サイズ一覧をサブメニューとして追加 / Add size list as submenu
+            // Attach the available preset sizes as a submenu
             PopulateSizeList(windowItem, win);
 
             parent.DropDownItems.Add(windowItem);
         }
     }
 
+    // Add a size menu item for each preset; disable sizes that exceed the window's screen.
     private void PopulateSizeList(ToolStripMenuItem parent, WindowInfo win)
     {
-        // ウィンドウが属するスクリーンの解像度を取得 / Get the screen resolution for the window's display
+        // Determine which display contains this window and get its resolution
         var screenSize = GetScreenSizeForWindow(win);
 
         foreach (var size in _store.AllSizes)
@@ -145,8 +147,7 @@ public class TrayApplicationContext : ApplicationContext
                     bool success = WindowManager.ResizeWindow(win, size);
                     if (success)
                     {
-                        // リサイズ成功後にスクリーンショットをキャプチャ
-                        // Capture screenshot after successful resize
+                        // Capture a screenshot now that the resize succeeded
                         ScreenshotHelper.CaptureAfterResize(win, size);
                     }
                     else
@@ -165,28 +166,26 @@ public class TrayApplicationContext : ApplicationContext
     }
 
     /// <summary>
-    /// テキストの描画幅が maxWidth を超える場合、末尾を切り詰めて「…」を付ける
-    /// Truncates text with "…" so its rendered width does not exceed maxWidth.
+    /// Truncates text with "..." so its rendered width does not exceed maxWidth.
     /// </summary>
     private static string TruncateToFit(string text, Font font, float maxWidth)
     {
         if (TextRenderer.MeasureText(text, font).Width <= maxWidth)
             return text;
 
-        while (text.Length > 10)
+        // Shorten one character at a time until the text plus ellipsis fits.
+        for (int length = text.Length - 1; length >= 10; length--)
         {
-            text = text[..^2] + "\u2026"; // remove last 2 chars, append "…"
-            if (TextRenderer.MeasureText(text, font).Width <= maxWidth)
-                return text;
-            text = text[..^1]; // remove the "…" before next iteration
+            string candidate = text[..length] + "\u2026";
+            if (TextRenderer.MeasureText(candidate, font).Width <= maxWidth)
+                return candidate;
         }
 
-        return text + "\u2026";
+        return text[..10] + "\u2026";
     }
 
     /// <summary>
-    /// ウィンドウの中心座標が属するスクリーンのサイズを返す
-    /// Returns the screen size of the display containing the window's center point
+    /// Returns the screen size of the display containing the window's center point.
     /// </summary>
     private static Size GetScreenSizeForWindow(WindowInfo win)
     {
@@ -211,9 +210,10 @@ public class TrayApplicationContext : ApplicationContext
         _settingsForm.Activate();
     }
 
-    private static Icon CreateDefaultIcon()
+    // Load the tray icon from embedded resources, with a drawn fallback.
+    private static Icon LoadTrayIcon()
     {
-        // 埋め込みリソースからアイコンを読み込む / Load icon from embedded resource
+        // Load icon from embedded resource
         var assembly = System.Reflection.Assembly.GetExecutingAssembly();
         var stream = assembly.GetManifestResourceStream("WindowResize.Resources.app.ico");
         if (stream != null)
@@ -221,7 +221,7 @@ public class TrayApplicationContext : ApplicationContext
             return new Icon(stream);
         }
 
-        // フォールバック: 簡易アイコンを生成 / Fallback: generate simple icon
+        // Fallback: draw a simple resize icon
         var bitmap = new Bitmap(16, 16);
         using (var g = Graphics.FromImage(bitmap))
         {

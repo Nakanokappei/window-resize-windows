@@ -21,8 +21,8 @@ public class SettingsForm : Form
     private Button _chooseFolderButton = null!;
     private Label _folderPathLabel = null!;
 
-    // スクリーンショットセクション開始Y座標 / Y position where screenshot section starts
-    private int _screenshotSectionY;
+    // Top Y coordinate of the collapsible screenshot options panel
+    private int _screenshotOptionsPanelTop;
 
     public SettingsForm()
     {
@@ -86,7 +86,7 @@ public class SettingsForm : Form
         };
         customGroup.Controls.Add(_customList);
 
-        // Remove button — リストの右に配置 / Place to the right of the list
+        // Remove button, placed to the right of the custom sizes list
         _removeButton = new Button
         {
             Text = Strings.SettingsRemove,
@@ -204,9 +204,8 @@ public class SettingsForm : Form
         Controls.Add(_screenshotEnabledCheck);
         y += 26;
 
-        // スクリーンショットオプションパネル（表示/非表示切替用）
-        // Screenshot options panel (for show/hide toggle)
-        _screenshotSectionY = y;
+        // Collapsible panel for screenshot destination options
+        _screenshotOptionsPanelTop = y;
         _screenshotOptionsPanel = new Panel
         {
             Location = new Point(0, y),
@@ -271,25 +270,24 @@ public class SettingsForm : Form
 
         Controls.Add(_screenshotOptionsPanel);
 
-        // 初期表示状態を設定 / Set initial visibility
+        // Set initial panel visibility based on current setting
         UpdateScreenshotOptionsVisibility();
     }
 
     /// <summary>
-    /// スクリーンショットオプションの表示/非表示を切り替え、フォーム高さを自動調整
-    /// Toggle screenshot options visibility and auto-adjust form height
+    /// Toggle screenshot options visibility and auto-adjust form height.
     /// </summary>
     private void UpdateScreenshotOptionsVisibility()
     {
         bool show = _store.ScreenshotEnabled;
         _screenshotOptionsPanel.Visible = show;
 
-        // フォーム高さを再計算 / Recalculate form height
+        // Recalculate form height based on panel visibility
         int contentBottom = show
-            ? _screenshotSectionY + _screenshotOptionsPanel.Height + 12
-            : _screenshotSectionY + 12;
+            ? _screenshotOptionsPanelTop + _screenshotOptionsPanel.Height + 12
+            : _screenshotOptionsPanelTop + 12;
 
-        // タイトルバー分を含むフォームサイズ / Form size including title bar
+        // Set client area; WinForms accounts for the title bar automatically
         ClientSize = new Size(404, contentBottom);
     }
 
