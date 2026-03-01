@@ -28,6 +28,7 @@ ArchitecturesInstallIn64BitMode=x64compatible
 ArchitecturesAllowed=x64compatible
 UninstallDisplayIcon={app}\{#MyAppExeName}
 PrivilegesRequired=lowest
+ShowLanguageDialog=yes
 CloseApplications=force
 
 [Languages]
@@ -47,6 +48,8 @@ Name: "launchatlogin"; Description: "Start with Windows"; GroupDescription: "Oth
 
 [Files]
 Source: "..\WindowResize\bin\Release\net8.0-windows10.0.17763.0\win-x64\publish\WindowResize.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\README.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
