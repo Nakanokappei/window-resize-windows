@@ -12,49 +12,46 @@ macOS 版 (Window Resize) の Windows 移植。
 
 ## Build & Run
 ```bash
-# dotnet パス (Homebrew)
+# Windows上でのビルド
+dotnet build WindowResize/WindowResize.csproj
+dotnet publish WindowResize/WindowResize.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true
+
+# macOS上でのクロスコンパイル
 DOTNET=/opt/homebrew/Cellar/dotnet@8/8.0.123/libexec/dotnet
-
-# デバッグビルド（macOS上でクロスコンパイル）
-$DOTNET build WindowResize.csproj
-
-# Windows向けリリースビルド（単一exe、自己完結型）
 $DOTNET publish WindowResize.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true
 
 # 出力先
-# bin/Release/net8.0-windows/win-x64/publish/WindowResize.exe
+# WindowResize/bin/Release/net8.0-windows10.0.17763.0/win-x64/publish/WindowResize.exe
 ```
 
 ## Project Structure
 ```
-WindowResize/
-├── CLAUDE.md                          # このファイル
-├── WindowResize.csproj                # プロジェクト設定
-├── Program.cs                         # エントリポイント
-├── TrayApplicationContext.cs          # NotifyIcon・メニュー構築・リサイズ実行
-├── WindowManager.cs                   # Win32 P/Invoke（ウィンドウ列挙・リサイズ）
-├── PresetSize.cs                      # サイズモデル
-├── SettingsStore.cs                   # JSON永続化・レジストリ自動起動
-├── SettingsForm.cs                    # WinForms設定画面
-├── ScreenshotHelper.cs               # スクリーンショットキャプチャ (PrintWindow API)
-└── Resources/
-    ├── Strings.resx                   # 英語（デフォルト）
-    ├── Strings.Designer.cs            # 自動生成リソースクラス
-    ├── Strings.zh-Hans.resx           # 簡体中文
-    ├── Strings.es.resx                # スペイン語
-    ├── Strings.hi.resx                # ヒンディー語
-    ├── Strings.ar.resx                # アラビア語
-    ├── Strings.id.resx                # インドネシア語
-    ├── Strings.pt.resx                # ポルトガル語
-    ├── Strings.fr.resx                # フランス語
-    ├── Strings.ja.resx                # 日本語
-    ├── Strings.ru.resx                # ロシア語
-    ├── Strings.de.resx                # ドイツ語
-    ├── Strings.vi.resx                # ベトナム語
-    ├── Strings.th.resx                # タイ語
-    ├── Strings.ko.resx                # 韓国語
-    ├── Strings.it.resx                # イタリア語
-    └── Strings.zh-Hant.resx           # 繁体中文
+Window Resize Windows/           # リポジトリルート (W:\01_Active\Window Resize Windows)
+├── README.md                    # GitHub用README
+├── LICENSE                      # MIT License
+├── .gitignore
+├── .github/workflows/msix.yml  # MSIX自動ビルド (v* タグ)
+├── installer/
+│   └── WindowResize.iss         # Inno Setup インストーラスクリプト
+├── dist/                        # ビルド成果物 (.gitignore対象)
+└── WindowResize/                # ソースコード
+    ├── CLAUDE.md                # このファイル
+    ├── WindowResize.csproj      # プロジェクト設定 (TFM: net8.0-windows10.0.17763.0)
+    ├── Program.cs               # エントリポイント
+    ├── TrayApplicationContext.cs # NotifyIcon・メニュー構築・リサイズ実行
+    ├── WindowManager.cs         # Win32 P/Invoke（ウィンドウ列挙・リサイズ）
+    ├── PresetSize.cs            # サイズモデル
+    ├── SettingsStore.cs         # JSON永続化・自動起動 (Registry/StartupTask)
+    ├── SettingsForm.cs          # WinForms設定画面
+    ├── SplashForm.cs            # スプラッシュ画面 (バージョン表示)
+    ├── ScreenshotHelper.cs      # スクリーンショットキャプチャ (PrintWindow API)
+    ├── Package/
+    │   ├── AppxManifest.xml     # MSIX マニフェスト
+    │   └── Assets/*.png         # Store 用アセット (10ファイル)
+    └── Resources/
+        ├── Strings.resx         # 英語（デフォルト）+ 15言語の .resx
+        ├── app.ico              # アプリアイコン
+        └── splash.png           # スプラッシュ画像
 ```
 
 ## Key Architecture Decisions
@@ -172,7 +169,37 @@ makeappx.exe pack /d msix_layout /p WindowResize.msix /o
 - Store 提出時は Microsoft が署名するため自己署名不要
 - `runFullTrust` 申請理由: ウィンドウ列挙・リサイズ・スクリーンショットのための Win32 API アクセス
 
+## 配布方法
+
+### 1. ZIP (ポータブル)
+`dist/WindowResize-Windows-v{VERSION}.zip` — EXE + README.md + LICENSE を同梱
+```bash
+dotnet publish WindowResize/WindowResize.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+# ZIP に WindowResize.exe, README.md, LICENSE を含める
+```
+
+### 2. インストーラ (Inno Setup)
+`dist/WindowResize-Setup-v{VERSION}.exe` — 9言語選択ダイアログ付き
+```bash
+# Inno Setup パス: C:\Users\nakanokappei\AppData\Local\Programs\Inno Setup 6\ISCC.exe
+ISCC.exe installer/WindowResize.iss
+```
+- インストーラにも README.md, LICENSE を同梱
+- `ShowLanguageDialog=yes` で言語選択
+
+### 3. MSIX (Microsoft Store)
+Store 提出時は Microsoft が署名。ローカルテストは自己署名 + 開発者モード必要。
+
+### リリース手順
+1. バージョン更新: `SplashForm.cs`, `AppxManifest.xml`, `WindowResize.iss`
+2. ビルド: `dotnet publish` → ZIP作成 → `ISCC.exe` でインストーラ
+3. コミット & タグ: `git tag v{VERSION}`
+4. GitHub Release: `gh release create v{VERSION} dist/*.zip dist/*.exe`
+   - gh.exe パス: `C:\Program Files\GitHub CLI\gh.exe`
+
 ## Conventions
 - リソースキーは PascalCase: `MenuResize`, `SettingsWidth`, `AlertResizeFailedTitle`
 - SettingsForm は閉じるとき Hide（破棄しない）
 - メニューは SettingsChanged イベントで再構築
+- メニュータグの右寄せは `ShortcutKeyDisplayString` プロパティで実現
+- メニュータイトルは画面幅の1/4に制限 (`TruncateToFit`)
