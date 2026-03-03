@@ -70,6 +70,10 @@ The project supports cross-compilation from macOS using `EnableWindowsTargeting`
 dotnet publish WindowResize.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true
 ```
 
+## Privacy Policy
+
+[Privacy Policy](PRIVACY.md) — This app does not collect any personal data.
+
 ## License
 
 [MIT](LICENSE)
