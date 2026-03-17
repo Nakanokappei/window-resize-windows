@@ -73,7 +73,7 @@ public class SplashForm : Form
         using var titleBrush = new SolidBrush(Color.White);
         var titleRect = new RectangleF(0, 85, Width, 35);
         var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-        g.DrawString("Window Resize", titleFont, titleBrush, titleRect, sf);
+        g.DrawString("Window Resize & Capture", titleFont, titleBrush, titleRect, sf);
 
         // Version
         using var versionFont = new Font("Segoe UI", 10);

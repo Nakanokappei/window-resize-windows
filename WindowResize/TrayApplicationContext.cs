@@ -26,7 +26,7 @@ public class TrayApplicationContext : ApplicationContext
             Icon = LoadTrayIcon(),
             ContextMenuStrip = _contextMenu,
             Visible = true,
-            Text = "Window Resize"
+            Text = "Window Resize & Capture"
         };
 
         _notifyIcon.MouseClick += (_, e) =>

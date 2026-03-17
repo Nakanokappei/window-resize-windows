@@ -49,8 +49,8 @@
       EntryPoint="Windows.FullTrustApplication">
 
       <uap:VisualElements
-        DisplayName="Window Resize"
-        Description="Resize application windows to preset sizes from the system tray."
+        DisplayName="Window Resize &amp; Capture"
+        Description="Resize and capture application windows from the system tray."
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
@@ -66,7 +66,7 @@
           <desktop:StartupTask
             TaskId="WindowResizeStartup"
             Enabled="false"
-            DisplayName="Window Resize" />
+            DisplayName="Window Resize &amp; Capture" />
         </desktop:Extension>
       </Extensions>
 

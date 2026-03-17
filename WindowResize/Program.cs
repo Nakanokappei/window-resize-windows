@@ -20,7 +20,7 @@ static class Program
             // Already running
             MessageBox.Show(
                 Strings.AlreadyRunningBody,
-                "Window Resize",
+                "Window Resize & Capture",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             return;

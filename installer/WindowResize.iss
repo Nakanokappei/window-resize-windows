@@ -1,7 +1,7 @@
 ; Inno Setup Script for Window Resize for Windows
 ; Build: iscc.exe WindowResize.iss
 
-#define MyAppName "Window Resize"
+#define MyAppName "Window Resize & Capture"
 #define MyAppVersion "1.6"
 #define MyAppPublisher "Kappei Nakano"
 #define MyAppURL "https://github.com/Nakanokappei/window-resize-windows"
@@ -48,7 +48,7 @@ Name: "full"; Description: "Full (all manual languages)"
 Name: "custom"; Description: "Custom"; Flags: iscustom
 
 [Components]
-Name: "app"; Description: "Window Resize"; Types: standard full custom; Flags: fixed
+Name: "app"; Description: "Window Resize & Capture"; Types: standard full custom; Flags: fixed
 Name: "manual"; Description: "User Manual"; Types: standard full
 Name: "manual\en"; Description: "English"; Types: standard full
 Name: "manual\ar"; Description: "العربية (Arabic)"; Types: full
