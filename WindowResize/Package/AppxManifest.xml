@@ -13,7 +13,7 @@
     ProcessorArchitecture="x64" />
 
   <Properties>
-    <DisplayName>Window Resize for Windows</DisplayName>
+    <DisplayName>Window Resize & Capture</DisplayName>
     <PublisherDisplayName>Kappei Nakano</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
     <Description>Resize application windows to preset sizes from the system tray.</Description>

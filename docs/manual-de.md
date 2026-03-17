@@ -1,4 +1,4 @@
-# Window Resize for Windows — Benutzerhandbuch
+# Window Resize & Capture — Benutzerhandbuch
 
 ## Inhaltsverzeichnis
 

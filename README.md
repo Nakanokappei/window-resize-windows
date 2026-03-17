@@ -1,4 +1,4 @@
-# Window Resize for Windows
+# Window Resize & Capture
 
 A system tray application that resizes windows to preset sizes.
 

@@ -1,12 +1,12 @@
 # Privacy Policy
 
-**Window Resize for Windows**
+**Window Resize & Capture**
 
 Last updated: March 4, 2026
 
 ## Overview
 
-Window Resize for Windows is a system tray utility that resizes application windows to preset sizes. This app is designed with privacy in mind and does not collect, transmit, or share any personal data.
+Window Resize & Capture is a system tray utility that resizes application windows to preset sizes. This app is designed with privacy in mind and does not collect, transmit, or share any personal data.
 
 ## Data Collection
 

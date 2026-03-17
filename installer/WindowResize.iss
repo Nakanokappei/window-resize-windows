@@ -1,4 +1,4 @@
-; Inno Setup Script for Window Resize for Windows
+; Inno Setup Script for Window Resize & Capture
 ; Build: iscc.exe WindowResize.iss
 
 #define MyAppName "Window Resize & Capture"

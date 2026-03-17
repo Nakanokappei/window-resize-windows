@@ -1,4 +1,4 @@
-# Window Resize for Windows — Panduan Pengguna
+# Window Resize & Capture — Panduan Pengguna
 
 ## Daftar Isi
 

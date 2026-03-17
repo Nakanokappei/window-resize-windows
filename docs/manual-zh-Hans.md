@@ -1,4 +1,4 @@
-# Window Resize for Windows — 用户手册
+# Window Resize & Capture — 用户手册
 
 ## 目录
 

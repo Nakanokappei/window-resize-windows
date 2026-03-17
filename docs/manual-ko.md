@@ -1,4 +1,4 @@
-# Window Resize for Windows — 사용 설명서
+# Window Resize & Capture — 사용 설명서
 
 ## 목차
 
